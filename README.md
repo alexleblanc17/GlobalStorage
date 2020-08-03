@@ -31,7 +31,7 @@ To set up a store all you need to do is give it an ID and pass it an object or a
   GlobalStorage.create('todos', ['laundry', 'cook dinner', 'chill']);
 ```
 
-## React Library
+## Using with React
 
 ### useStore(storeId: string, suppressEvents: boolean = false): object | array
 
