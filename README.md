@@ -1,4 +1,5 @@
 
+
 # GlobalStorage (WIP)
 
 #### Preface
@@ -37,19 +38,35 @@ Used to create a store. The `storeId` passed in is then used to identify the sto
 Used to get a store that has previously been created.
 #### Example:
 ```
-  import GlobalStorage from 'GlobalStorage';
+import GlobalStorage from 'GlobalStorage';
   
-  const userStore = GlobalStorage.get('user');
-  userStore.firstName = 'Jon';
-  userStore.lastName = 'Smith';
+const userStore = GlobalStorage.get('user');
+userStore.firstName = 'Jon';
+userStore.lastName = 'Smith';
 ``` 
 ### reset(storeId: string): void
 Used to reset a store to its default state.
 #### Example:
 ```
-  import GlobalStorage from 'GlobalStorage';
+import GlobalStorage from 'GlobalStorage';
   
-  GlobalStorage.reset('user');
+GlobalStorage.reset('user');
+``` 
+
+### setDefaults(options: Options): void
+Used to set default options.
+|Option|Values|
+|--|--|
+|batchUpdater|***function***: this is useful for react where we want updates to be batched into one update.|
+
+#### Example:
+```
+import GlobalStorage from 'GlobalStorage';
+import { unstable_batchedUpdates } from 'react-dom';
+  
+GlobalStorage.setDefaults({
+	batchUpdater: unstable_batchedUpdates
+});
 ``` 
 
 ## Using with React
@@ -59,9 +76,33 @@ If you are in a React application, you should access the store and its values by
 Used to get a store that has been created. If you are using the store to only set and read values, then passing `true` to `suppressEvents` will improve the performance, by suppressing the events it will tell the React component that it doesn't need to re-render when the store changes.
 #### Example:
 ```
-  import { useStore } from 'GlobalStorage';
+import { useState } from 'react';
+import { useStore } from 'GlobalStorage';
   
-  
+const TodoList = ({ index }) => {
+	const [todo, setTodo] = useState('');
+	const todos = useStore('todos');
+	const list = todos.map((item, index) => (
+		<TodoItem index={index} />
+	));
+	
+	return (
+		<input onChange={e => setTodo(e.target.value) />
+		<ul>{ list }</ul>
+		<AddTodoButton todo={todo} />
+	);
+}
+
+const AddTodoButton = ({ todo }) => {
+	const todos = useStore('todos');
+	const handleOnClick = () => {
+		todos.push(todo)
+	}
+	
+	return (
+		<button onClick={handleOnClick}>Add todo</button>
+	)
+}
 ``` 
 ### useValue(storeId: string, path: string | number): any
 Used to get a value from a store. This is useful for components that only deal with data from parts of the store and not the whole store itself. It accepts a path to any array or object. The path uses normal dot notation to find the value needed. When the value changes the React component will update as well.
@@ -69,6 +110,12 @@ Used to get a value from a store. This is useful for components that only deal w
 ```
   import { useValue } from 'GlobalStorage';
   
-  
+  const TodoItem = ({ index }) => {
+	const item = useValue('todos', index);
+	
+	return (
+		<li>item</li>
+	);
+}
 ``` 
 

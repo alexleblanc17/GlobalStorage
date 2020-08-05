@@ -16,7 +16,7 @@ export const GlobalStorage = (() => {
 		}
 
 		const proxy = ObservableSlim.create(defaultState, true, changes => {
-			const latestChanges = getLatestChangesPerPath(changes);
+			const latestChanges = _getLatestChangesPerPath(changes);
 
 			_emit(storeId, latestChanges);
 		});
@@ -133,6 +133,16 @@ export const GlobalStorage = (() => {
 				path.substr(path.indexOf(eventData.path) + eventData.path.length, 1) === '.'
 			)
 		);
+	}
+
+	function _getLatestChangesPerPath(changes) {
+		const paths = {};
+
+		changes.forEach(({ currentPath, newValue }) => {
+			paths[currentPath] = newValue;
+		});
+
+		return Object.keys(paths).map(path => ({ path, value: paths[path] }));
 	}
 
 	return {
