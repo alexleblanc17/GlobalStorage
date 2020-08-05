@@ -1,3 +1,4 @@
+
 # GlobalStorage (WIP)
 
 #### Preface
@@ -19,6 +20,8 @@ This is a complete WIP, but basically I was tired with all of the state managmen
 To set up a store all you need to do is give it an ID and pass it an object or array:
 
 ### create(storeId: string, defaultData: object | array): void
+Used to create a store. The `storeId` passed in is then used to identify the store when used throughout the application.
+#### Example:
 ```
   import GlobalStorage from 'GlobalStorage';
   
@@ -29,12 +32,43 @@ To set up a store all you need to do is give it an ID and pass it an object or a
   });
   
   GlobalStorage.create('todos', ['laundry', 'cook dinner', 'chill']);
+``` 
+### get(storeId: string): object | array
+Used to get a store that has previously been created.
+#### Example:
 ```
+  import GlobalStorage from 'GlobalStorage';
+  
+  const userStore = GlobalStorage.get('user');
+  userStore.firstName = 'Jon';
+  userStore.lastName = 'Smith';
+``` 
+### reset(storeId: string): void
+Used to reset a store to its default state.
+#### Example:
+```
+  import GlobalStorage from 'GlobalStorage';
+  
+  GlobalStorage.reset('user');
+``` 
 
 ## Using with React
+If you are in a React application, you should access the store and its values by using these hooks:
 
 ### useStore(storeId: string, suppressEvents: boolean = false): object | array
-
+Used to get a store that has been created. If you are using the store to only set and read values, then passing `true` to `suppressEvents` will improve the performance, by suppressing the events it will tell the React component that it doesn't need to re-render when the store changes.
+#### Example:
+```
+  import { useStore } from 'GlobalStorage';
+  
+  
+``` 
 ### useValue(storeId: string, path: string | number): any
-
+Used to get a value from a store. This is useful for components that only deal with data from parts of the store and not the whole store itself. It accepts a path to any array or object. The path uses normal dot notation to find the value needed. When the value changes the React component will update as well.
+#### Example:
+```
+  import { useValue } from 'GlobalStorage';
+  
+  
+``` 
 

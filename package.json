@@ -1,0 +1,13 @@
+{
+  "name": "GlobalStorage",
+  "version": "1.0.0",
+  "description": "Global state management for any JS application.",
+  "main": "src/index.js",
+  "repository": "https://github.com/alexleblanc17/GlobalStorage.git",
+  "author": "Alex LeBlanc <alexleblanc@invisionapp.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash.get": "^4.4.2",
+    "observable-slim": "^0.1.5"
+  }
+}

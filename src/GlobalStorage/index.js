@@ -21,7 +21,10 @@ export const GlobalStorage = (() => {
 			_emit(storeId, latestChanges);
 		});
 
-		stores[storeId] = proxy;
+		stores[storeId] = {
+			proxy,
+			defaultState: JSON.parse(JSON.stringify(defaultState))
+		};
 	}
 
 	function get (storeId) {
@@ -31,7 +34,27 @@ export const GlobalStorage = (() => {
 			return {};
 		}
 
-		return stores[storeId];
+		return stores[storeId].proxy;
+	}
+
+	function reset (storeId) {
+		if (!stores[storeId]) {
+			console.error(`A store with the ID "${ storeId }" doesn't exist, so there is nothing to reset.`);
+
+			return;
+		}
+
+		const { proxy, defaultState } = stores[storeId];
+
+		Object.keys(proxy).forEach(key => {
+			if (!defaultState[key]) {
+				delete proxy[key];
+
+				return;
+			}
+
+			proxy[key] = defaultState[key];
+		});
 	}
 
 	function on ({ storeId, path }, callback) {
@@ -115,6 +138,7 @@ export const GlobalStorage = (() => {
 	return {
 		create,
 		get,
+		reset,
 		on,
 		off,
 		setDefaults
