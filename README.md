@@ -108,9 +108,9 @@ const AddTodoButton = ({ todo }) => {
 Used to get a value from a store. This is useful for components that only deal with data from parts of the store and not the whole store itself. It accepts a path to any array or object. The path uses normal dot notation to find the value needed. When the value changes the React component will update as well.
 #### Example:
 ```
-  import { useValue } from 'GlobalStorage';
+import { useValue } from 'GlobalStorage';
   
-  const TodoItem = ({ index }) => {
+const TodoItem = ({ index }) => {
 	const item = useValue('todos', index);
 	
 	return (

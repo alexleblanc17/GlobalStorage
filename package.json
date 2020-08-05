@@ -2,12 +2,13 @@
   "name": "GlobalStorage",
   "version": "1.0.0",
   "description": "Global state management for any JS application.",
-  "main": "src/index.js",
+  "main": "build/GlobalStorage.js",
   "repository": "https://github.com/alexleblanc17/GlobalStorage.git",
   "author": "Alex LeBlanc <alexleblanc@invisionapp.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src --ext .js"
+    "lint": "eslint src --ext .js",
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "lodash.get": "^4.4.2",
@@ -15,7 +16,13 @@
     "react": "^16.13.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "eslint": "^7.6.0",
-    "eslint-plugin-react-hooks": "^4.0.8"
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }
