@@ -12,13 +12,19 @@ module.exports = () => (
             library: 'GlobalStorage'
         },
         externals: {
-			react: {
-       			root: 'React',
-        		commonjs2: 'react',
-        		commonjs: 'react',
-        		amd: 'react'
-			}
+            react: 'react',
+			// react: {
+   //     			root: 'React',
+   //      		commonjs2: 'react',
+   //      		commonjs: 'react',
+   //      		amd: 'react'
+			// }
         },
+        resolve: {
+        alias: {
+            react: path.resolve('./node_modules/react')
+          },
+      },
         module: {
             rules: [
                 {

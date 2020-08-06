@@ -3,7 +3,7 @@
 # GlobalStorage
 
 #### Preface
-This is a complete WIP, but basically I was tired with all of the state managment solutions out there, they are either over engineered, not performant enough, or too disconected from the code. It feels like with most solutions out there you are fighting with the state management to make it work with the code or you run into performance issues eventually. `GlobalStorage` sets out to solve this.
+I was tired with all of the state managment solutions out there, they are either over engineered, not performant enough, or too disconected from the code. It feels like with most solutions out there you are fighting with the state management to make it work with the code or you run into performance issues eventually. `GlobalStorage` sets out to solve this.
 
 ## What is `GlobalStorage`?
 `GlobalStorage` is a state management solution that is intended to be used with any framework, or no framework at all. Currently it is focused towards modern React that uses Hooks, but if you'd like to open a PR so help expand support, that is more than welcome :)
@@ -24,7 +24,7 @@ To set up a store all you need to do is give it an ID and pass it an object or a
 Used to create a store. The `storeId` passed in is then used to identify the store when used throughout the application.
 #### Example:
 ```
-  import GlobalStorage from 'GlobalStorage';
+  import GlobalStorage from 'global-storage-system';
   
   GlobalStorage.create('user', {
     firstName: 'Alex',
@@ -38,7 +38,7 @@ Used to create a store. The `storeId` passed in is then used to identify the sto
 Used to get a store that has previously been created.
 #### Example:
 ```
-import GlobalStorage from 'GlobalStorage';
+import GlobalStorage from 'global-storage-system';
   
 const userStore = GlobalStorage.get('user');
 userStore.firstName = 'Jon';
@@ -48,7 +48,7 @@ userStore.lastName = 'Smith';
 Used to reset a store to its default state.
 #### Example:
 ```
-import GlobalStorage from 'GlobalStorage';
+import GlobalStorage from 'global-storage-system';
   
 GlobalStorage.reset('user');
 ``` 
@@ -61,7 +61,7 @@ Used to set default options.
 
 #### Example:
 ```
-import GlobalStorage from 'GlobalStorage';
+import GlobalStorage from 'global-storage-system';
 import { unstable_batchedUpdates } from 'react-dom';
   
 GlobalStorage.setDefaults({
