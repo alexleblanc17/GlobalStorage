@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import react, { useState, useEffect, useRef } from 'react';
 
-import useUpdater from './useUpdater'
+import useUpdater from './useUpdater';
 import GlobalStorage from './../GlobalStorage';
 
 export const useStore = (storeId, supressEvents = false) => {

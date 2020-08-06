@@ -12,12 +12,12 @@ module.exports = () => (
             library: 'GlobalStorage'
         },
         externals: {
-            react: {
-                commonjs: 'react',
-                commonjs2: 'react',
-                amd: 'react',
-                root: 'react'
-            }
+			react: {
+       			root: 'React',
+        		commonjs2: 'react',
+        		commonjs: 'react',
+        		amd: 'react'
+			}
         },
         module: {
             rules: [

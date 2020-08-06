@@ -1,6 +1,6 @@
 
 
-# GlobalStorage (WIP)
+# GlobalStorage
 
 #### Preface
 This is a complete WIP, but basically I was tired with all of the state managment solutions out there, they are either over engineered, not performant enough, or too disconected from the code. It feels like with most solutions out there you are fighting with the state management to make it work with the code or you run into performance issues eventually. `GlobalStorage` sets out to solve this.

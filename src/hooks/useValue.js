@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-
+import react, { useState, useEffect, useRef } from 'react';
 import get from 'lodash.get';
+
+import useUpdater from './useUpdater';
 import GlobalStorage from './../GlobalStorage';
 
 export const useValue = (storeId, unformatedPath) => {
@@ -9,9 +10,7 @@ export const useValue = (storeId, unformatedPath) => {
 	const update = useUpdater();
 
 	useEffect(() => {
-		const handleStoreUpdate = () => {
-			update();
-		};
+		const handleStoreUpdate = update;
 
 		GlobalStorage.on({ storeId, path }, handleStoreUpdate);
 

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import react, { useState, useCallback } from 'react';
 
 export const useUpdater = (storeId, supressEvents = false) => {
 	const [,updater] = useState(0);

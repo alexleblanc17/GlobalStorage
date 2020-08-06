@@ -1,5 +1,7 @@
 import ObservableSlim from 'observable-slim';
 
+const UNDEFINED_PATH = '__GS_UNDEFINED__';
+
 export const GlobalStorage = (() => {
 	const stores = {};
 	const eventListeners = {};
@@ -57,7 +59,7 @@ export const GlobalStorage = (() => {
 		});
 	}
 
-	function on ({ storeId, path }, callback) {
+	function on ({ storeId, path = UNDEFINED_PATH }, callback) {
 		if (!storeId) {
 			return console.error(`A store is required to listen on, no storeId was passed.`);
 		}
@@ -69,10 +71,10 @@ export const GlobalStorage = (() => {
 		if (!eventListeners[storeId]) eventListeners[storeId] = {};
 		if (!eventListeners[storeId][path]) eventListeners[storeId][path] = [];
 
-		eventListeners[storeId][path] = callback;
+		eventListeners[storeId][path].push(callback);
 	}
 
-	function off ({ storeId, path }, callback) {
+	function off ({ storeId, path = UNDEFINED_PATH }, callback) {
 		if (!eventListeners[storeId]) {
 			return console.error(`Event listener does not exist to remove for storeId ${storeId}.`);
 		}
@@ -95,8 +97,6 @@ export const GlobalStorage = (() => {
 	}
 
 	function _emit (storeId, changes) {
-		console.log('UPDATING', changes)
-
 		const callbacks = [];
 
 		changes.forEach(({ path }) => {
@@ -109,7 +109,7 @@ export const GlobalStorage = (() => {
 						path: listenerPath,
 					});
 
-					if (match) callbacks.push(storeData[listenerPath]);
+					if (match) callbacks.push(...storeData[listenerPath]);
 				})	
 			})
 		});
@@ -124,7 +124,7 @@ export const GlobalStorage = (() => {
 	function _getMatch(storeId, path, eventData) {
 		if (storeId !== eventData.storeId) return false;
 
-		if (!eventData.path) return true;
+		if (eventData.path === UNDEFINED_PATH) return true;
 
 		return (
 			path === eventData.path ||
