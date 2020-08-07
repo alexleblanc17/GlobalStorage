@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import GlobalStorage from './../GlobalStorage';
-export const useDerivedValue = (_storeIds, defaultValue, getter) => {
+export const useDerivedValue = (_storeIds, getter) => {
 	const storeIds = typeof _storeIds === 'string' ? [_storeIds] : _storeIds;
-	const [derivedValue, setDerivedValue] = useState(defaultValue);
+	const getValue = useCallback(() => {
+		const stores = storeIds.map(storeId => GlobalStorage.get(storeId));
+		
+		return getter(...stores);
+	}, [storeIds, getter]);
+	const [derivedValue, setDerivedValue] = useState(getValue());
 
 	useEffect(() => {
 		const handleStoreUpdate = () => {
-			const stores = storeIds.map(storeId => GlobalStorage.get(storeId));
-			const newValue = getter(...stores);
+			const newValue = getValue();
 
 			if (newValue !== derivedValue) {
 				setDerivedValue(newValue);
@@ -18,12 +22,14 @@ export const useDerivedValue = (_storeIds, defaultValue, getter) => {
 			GlobalStorage.on({ storeId }, handleStoreUpdate);
 		});
 
+		handleStoreUpdate();
+
 		return () => {
 			storeIds.forEach(storeId => {
 				GlobalStorage.off({ storeId }, handleStoreUpdate);
 			});
 		}		
-	}, [storeIds, getter, derivedValue, setDerivedValue]);
+	}, [getValue, derivedValue, setDerivedValue]);
 
 	return derivedValue;
 }

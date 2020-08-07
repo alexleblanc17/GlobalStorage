@@ -117,7 +117,7 @@ export const GlobalStorage = (() => {
 		if (!callbacks.length) return;
 
 		batchUpdater(() => {
-			callbacks.forEach(callback => callback());
+			callbacks.forEach(callback => callback(get(storeId)));
 		});
 	}
 
