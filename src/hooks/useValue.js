@@ -1,4 +1,4 @@
-import react, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import get from 'lodash.get';
 
 import useUpdater from './useUpdater';

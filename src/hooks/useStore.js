@@ -1,4 +1,4 @@
-import react, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import useUpdater from './useUpdater';
 import GlobalStorage from './../GlobalStorage';
