@@ -1,6 +1,6 @@
 {
   "name": "global-storage-system",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Global state management for any JS application.",
   "main": "build/GlobalStorage.js",
   "repository": "https://github.com/alexleblanc17/GlobalStorage.git",
