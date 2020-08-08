@@ -1,5 +1,6 @@
 
 
+
 # GlobalStorage
 
 #### Preface
@@ -14,6 +15,11 @@ I was tired with all of the state managment solutions out there, they are either
 - Ability to use it in with any framework and supports multiple frameworks at the same time.
 - Use the data like you would any JS data, no getters and setters.
 - No over engineering, it should be as close to working with vanilla JS as possible.
+
+## Using `GlobalStorage`
+To install run either `npm i global-storage-system` if you are using NPM or `yarn add global-storage-system` if you are using yarn.
+
+***Example app:*** [MVC ToDo](https://codesandbox.io/s/react-hooks-global-storage-1p2nk?file=/src/stores/index.js)
 
 # Library
 
@@ -118,4 +124,17 @@ const TodoItem = ({ index }) => {
 	);
 }
 ``` 
-
+### useDerivedValue(storeIds: array | string, getter: function): any
+Used to generate a value from multiple fields from the same store or multiple stores. The getter function is run each time the passed in stores updates and updates the value if it has changed.
+#### Example:
+```
+import { useDerivedValue } from 'global-storage-system';
+  
+const useUserTodos = () => {
+	const userTodos = useDerivedValue(['todos', 'user'], (todos, user) => {
+		return todos.filter(todo => todo.owner === user.id
+	});
+	
+	return userTodos;
+}
+``` 
