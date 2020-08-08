@@ -19,7 +19,7 @@ I was tired with all of the state managment solutions out there, they are either
 ## Using `GlobalStorage`
 To install run either `npm i global-storage-system` if you are using NPM or `yarn add global-storage-system` if you are using yarn.
 
-***Example app:*** [MVC ToDo](https://codesandbox.io/s/react-hooks-global-storage-1p2nk?file=/src/stores/index.js){:target="_blank"}
+***Example app:*** <a href="https://codesandbox.io/s/react-hooks-global-storage-1p2nk?file=/src/stores/index.js" target="_blank">MVC ToDo</a>
 
 # Library
 
