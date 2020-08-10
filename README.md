@@ -50,6 +50,23 @@ const userStore = GlobalStorage.get('user');
 userStore.firstName = 'Jon';
 userStore.lastName = 'Smith';
 ``` 
+### on({storeId: string, path: string}, callback): void
+Used to listen to a change event. The path it to the data within the store. If no path is set then you will recieve events for all changes
+#### Example:
+```
+import GlobalStorage from 'global-storage-system';
+  
+const nameChangeHandler = () => console.log('NAME WAS UPDATED')
+GlobalStorage.on({ storeId: 'user', path: 'name' }, nameChangeHandler);
+``` 
+### off({storeId: string, path: string}, callback): void
+Used to remove an event listener
+#### Example:
+```
+import GlobalStorage from 'global-storage-system';
+  
+GlobalStorage.off({ storeId: 'user', path: 'name' }, nameChangeHandler);
+``` 
 ### reset(storeId: string): void
 Used to reset a store to its default state.
 #### Example:
